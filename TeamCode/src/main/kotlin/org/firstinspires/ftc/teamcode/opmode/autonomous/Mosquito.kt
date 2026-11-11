@@ -11,17 +11,18 @@ import org.firstinspires.ftc.teamcode.robot.Rachel
 @VoltOpModeMeta("Mosquito")
 class Mosquito : AutonomousMode<Rachel>() {
     val poseFactory: PoseFactory = PoseFactory.degrees()
-    val initialPose : Pose = poseFactory.of(0.0,0.0,90.0)
+    val initialPose: Pose = poseFactory.of(0.0, 0.0, 90.0)
 
-    override val robot = Rachel(hardwareMap, initialPose)
+    override val robot = Rachel(hardwareMap, poseFactory, initialPose)
 
     private val end = robot.drivetrain.poseFactory.of(0.0, 25.0, 90.0)
 
     private val path1 = line(initialPose, end).linear(initialPose, end)
 
     init {
-        Start then {
-            +robot.drivetrain.followPath(path1)
-        }
+        Start then
+            {
+                +robot.drivetrain.followPath(path1)
+            }
     }
 }

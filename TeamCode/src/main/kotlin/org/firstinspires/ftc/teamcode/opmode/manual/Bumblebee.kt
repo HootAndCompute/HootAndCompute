@@ -10,6 +10,6 @@ import org.firstinspires.ftc.teamcode.robot.Rachel
 @VoltOpModeMeta("Bumblebee", "Competition")
 class Bumblebee : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDrivetrain, Rachel>() {
     val poseFactory: PoseFactory = PoseFactory.degrees()
-    val initialPose : Pose = poseFactory.of(0.0,0.0,90.0)
-    override val robot = Rachel(hardwareMap,initialPose)
+    val initialPose: Pose = poseFactory.of(0.0, 0.0, 90.0)
+    override val robot = Rachel(hardwareMap, poseFactory, initialPose)
 }
