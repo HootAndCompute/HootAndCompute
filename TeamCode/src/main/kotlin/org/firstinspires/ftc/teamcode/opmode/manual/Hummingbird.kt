@@ -1,44 +1,41 @@
-/**
- * This is for the intake of the robot for Rachel
- */
-
 package org.firstinspires.ftc.teamcode.opmode.manual
 
 import dev.kingssack.volt.attachment.drivetrain.pp.mecanum.PinpointMecanumPedroPathingDrivetrain
 import dev.kingssack.volt.opmode.VoltOpModeMeta
 import dev.kingssack.volt.opmode.manual.AdvancedDrivetrainManualMode
-import dev.kingssack.volt.util.Event.ManualEvent.Change
 import dev.kingssack.volt.util.Event.ManualEvent.Tap
-import dev.kingssack.volt.util.buttons.AnalogInput
 import dev.kingssack.volt.util.buttons.Button
-import org.firstinspires.ftc.teamcode.robot.Rachel
+import org.firstinspires.ftc.teamcode.robot.David
 
 /**
- * Hummingbird drives [Rachel] and controls her [org.firstinspires.ftc.teamcode.attachment.Intake].
+ * Hummingbird drives [David] and controls both his
+ * [org.firstinspires.ftc.teamcode.attachment.Intake] and
+ * [org.firstinspires.ftc.teamcode.attachment.Outtake].
  *
  * Gamepad 2:
- * - Right trigger: intake (proportional)
- * - Left trigger: reverse / eject (proportional)
- * - Right bumper: toggle intake at full power
- * - Left bumper: stop intake
+ * - Right bumper: enable intake
+ * - Left bumper: disable intake
+ * - X: reverse intake (eject)
+ * - A: enable outtake
+ * - B: disable outtake
+ * - D-pad up: increase outtake speed one step
+ * - D-pad down: decrease outtake speed one step
  */
 @VoltOpModeMeta("Hummingbird", "Testing")
-class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDrivetrain, Rachel>() {
-    override val robot = Rachel(hardwareMap)
-
-    private val triggerPower: Double
-        get() =
-            (AnalogInput.RIGHT_TRIGGER2.handler.value - AnalogInput.LEFT_TRIGGER2.handler.value)
-                .toDouble()
+class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDrivetrain, David>() {
+    override val robot = David(hardwareMap)
 
     private fun defineControls() {
-        // Analog control: right trigger pulls in, left trigger pushes out
-        Change(AnalogInput.RIGHT_TRIGGER2) then { +robot.intake.setPowerAction(triggerPower) }
-        Change(AnalogInput.LEFT_TRIGGER2) then { +robot.intake.setPowerAction(triggerPower) }
+        // Intake
+        Tap(Button.RIGHT_BUMPER2) then { +robot.intake.enable() }
+        Tap(Button.LEFT_BUMPER2) then { +robot.intake.disable() }
+        Tap(Button.X2) then { +robot.intake.reverse() }
 
-        // Digital control
-        Tap(Button.RIGHT_BUMPER2) then { +robot.intake.toggle() }
-        Tap(Button.LEFT_BUMPER2) then { +robot.intake.halt() }
+        // Outtake
+        Tap(Button.A2) then { +robot.outtake.enable() }
+        Tap(Button.B2) then { +robot.outtake.disable() }
+        Tap(Button.DPAD_UP2) then { +robot.outtake.increaseSpeed() }
+        Tap(Button.DPAD_DOWN2) then { +robot.outtake.decreaseSpeed() }
     }
 
     init {

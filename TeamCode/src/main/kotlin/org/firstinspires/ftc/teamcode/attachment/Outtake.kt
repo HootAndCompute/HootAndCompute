@@ -84,14 +84,6 @@ class Outtake(
     fun disable(): Action = instant { setRunning(false) }
 
     /**
-     * Toggles the outtake on and off at the current [targetVelocity]. Completes immediately.
-     *
-     * @return an [Action] that toggles the outtake
-     */
-    @VoltAction(name = "Toggle Outtake", description = "Toggles the outtake on and off")
-    fun toggle(): Action = instant { setRunning(!isRunning) }
-
-    /**
      * Raises [targetVelocity] by one step (applied immediately if running).
      *
      * @return an [Action] that increases outtake speed

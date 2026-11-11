@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import dev.kingssack.volt.annotations.VoltAction
 import dev.kingssack.volt.attachment.Attachment
+import dev.kingssack.volt.util.Power
 import kotlin.math.abs
 import org.firstinspires.ftc.robotcore.external.Telemetry
 
@@ -23,20 +24,17 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 class Intake(
     private val motor: DcMotor,
     direction: DcMotorSimple.Direction = DcMotorSimple.Direction.FORWARD,
-    private val intakePower: Double = 1.0,
-    private val reversePower: Double = 1.0,
+    private val intakePower: Power = Power(1.0),
+    private val reversePower: Power = Power(1.0),
 ) : Attachment("Intake") {
-    companion object {
-        private const val POWER_DEADBAND = 0.05
-    }
 
     // --- Properties ---
 
-    var power = 0.0
+    var power = Power(0.0)
         private set
 
     val isRunning: Boolean
-        get() = power != 0.0
+        get() = power.value != 0.0
 
     init {
         motor.direction = direction
@@ -50,10 +48,10 @@ class Intake(
     /**
      * Spins the intake inward at [power].
      *
-     * @return an [Action] that starts intaking
+     * @return an [Action] that enables the intake
      */
-    @VoltAction(name = "Start Intake", description = "Spins the intake inward")
-    fun intake(power: Double = intakePower): Action = setPowerAction(abs(power))
+    @VoltAction(name = "Enable Intake", description = "Spins the intake inward")
+    fun enable(power: Power = intakePower): Action = instant { setPower(Power(abs(power.value))) }
 
     /**
      * Spins the intake outward at [power] to eject artifacts.
@@ -61,41 +59,26 @@ class Intake(
      * @return an [Action] that reverses the intake
      */
     @VoltAction(name = "Reverse Intake", description = "Spins the intake outward")
-    fun reverse(power: Double = reversePower): Action = setPowerAction(-abs(power))
+    fun reverse(power: Power = reversePower): Action = instant { setPower(Power(-abs(power.value))) }
 
     /**
      * Stops the intake.
      *
-     * @return an [Action] that stops the intake
+     * @return an [Action] that disables the intake
      */
-    @VoltAction(name = "Stop Intake", description = "Stops the intake")
-    fun halt(): Action = setPowerAction(0.0)
+    @VoltAction(name = "Disable Intake", description = "Stops the intake")
+    fun disable(): Action = instant { setPower(Power(0.0)) }
 
-    /**
-     * Toggles the intake between stopped and intaking at [power].
-     *
-     * @return an [Action] that toggles the intake
-     */
-    @VoltAction(name = "Toggle Intake", description = "Toggles the intake on and off")
-    fun toggle(power: Double = intakePower): Action = action {
-        init { setPower(if (isRunning) 0.0 else abs(power)) }
+    // --- Helpers ---
+
+    private fun instant(block: () -> Unit): Action = action {
+        init { block() }
         loop { true }
     }
 
-    /**
-     * Sets the intake to a signed [power] in [-1, 1]. Useful for analog (trigger) control.
-     *
-     * @return an [Action] that sets the intake power
-     */
-    fun setPowerAction(power: Double): Action = action {
-        init { setPower(power) }
-        loop { true }
-    }
-
-    private fun setPower(target: Double) {
-        val clamped = target.coerceIn(-1.0, 1.0)
-        power = if (abs(clamped) < POWER_DEADBAND) 0.0 else clamped
-        motor.power = power
+    private fun setPower(target: Power) {
+        power = target
+        motor.power = target.value
     }
 
     context(telemetry: Telemetry)
@@ -105,17 +88,17 @@ class Intake(
             addData(
                 "Intake Status",
                 when {
-                    power > 0.0 -> "INTAKING"
-                    power < 0.0 -> "REVERSING"
+                    power.value > 0.0 -> "INTAKING"
+                    power.value < 0.0 -> "REVERSING"
                     else -> "STOPPED"
                 },
             )
-            addData("Intake Power", "%.2f".format(power))
+            addData("Intake Power", "%.2f".format(power.value))
         }
     }
 
     override fun stop() {
         super.stop()
-        setPower(0.0)
+        setPower(Power(0.0))
     }
 }
