@@ -17,12 +17,11 @@ class Mosquito : AutonomousMode<Rachel>() {
 
     private val end = robot.drivetrain.poseFactory.of(0.0, 25.0, 90.0)
 
-    private val path1 = line(initialPose, end).linear(initialPose, end)
+    private val path1 = line(initialPose, end).constant(end)
 
     init {
-        Start then
-            {
-                +robot.drivetrain.followPath(path1)
-            }
+        Start then {
+            +robot.drivetrain.followPath(path1)
+        }
     }
 }
