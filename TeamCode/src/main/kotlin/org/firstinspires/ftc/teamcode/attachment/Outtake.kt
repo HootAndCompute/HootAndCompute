@@ -71,7 +71,7 @@ class Outtake(
         }
         loop {
             put("Outtake velocity", motor.velocity)
-            isAtSpeed
+            !isRunning || isAtSpeed
         }
     }
 
