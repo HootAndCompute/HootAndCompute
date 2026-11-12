@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.robot
 
-import com.acmerobotics.dashboard.config.Config
 import com.pedropathing.algorithm.Foresight
 import com.pedropathing.algorithm.ForesightConfig
 import com.pedropathing.controllers.Controller
@@ -22,7 +21,6 @@ import org.firstinspires.ftc.teamcode.attachment.Outtake
  *
  * TODO: drivetrain config below is copied from [Rachel] as a placeholder — retune for David.
  */
-@Config
 class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPathingDrivetrain>(
     hardwareMap,
     PinpointMecanumPedroPathingDrivetrain(
@@ -98,13 +96,13 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
         ),
     ),
 ) {
-    companion object {
-        // Outtake velocities in ticks/s. Launcher on Jones ran 1240-1340 with a 2800 max;
-        // start lower for safety and step up with the d-pad.
-        @JvmField var outtakeStartVelocity: Double = 1000.0
-        @JvmField var outtakeMaxVelocity: Double = 2800.0
-        @JvmField var outtakeVelocityStep: Double = 50.0
-    }
+    // --- Constants ---
+
+    // Outtake velocities in ticks/s. Max is kept below the REV UltraPlanetary's ~2800 ticks/s
+    // no-load speed; start lower for safety and step up with the d-pad.
+    private val outtakeStartVelocity = 1000.0
+    private val outtakeMaxVelocity = 2100.0
+    private val outtakeVelocityStep = 50.0
 
     // --- Hardware ---
 

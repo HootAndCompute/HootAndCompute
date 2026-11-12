@@ -10,10 +10,6 @@ import kotlin.math.abs
 import org.firstinspires.ftc.robotcore.external.Telemetry
 
 /**
- * [Intake] is an [Attachment] that controls a single motor spinning intake blades.
- *
- * Positive power pulls artifacts in, negative power spits them out.
- *
  * @param motor the [DcMotor] that spins the intake blades
  * @param direction the [DcMotorSimple.Direction] that makes positive power intake
  * @param intakePower the default power used when intaking
@@ -24,8 +20,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 class Intake(
     private val motor: DcMotor,
     direction: DcMotorSimple.Direction = DcMotorSimple.Direction.FORWARD,
-    private val intakePower: Power = Power(1.0),
-    private val reversePower: Power = Power(1.0),
+    private val intakePower: Power = Power(0.6),
+    private val reversePower: Power = Power(0.4),
 ) : Attachment("Intake") {
 
     // --- Properties ---
@@ -51,15 +47,19 @@ class Intake(
      * @return an [Action] that enables the intake
      */
     @VoltAction(name = "Enable Intake", description = "Spins the intake inward")
-    fun enable(power: Power = intakePower): Action = instant { setPower(Power(abs(power.value))) }
+    fun enable(power: Power = intakePower): Action = action {
+        init { setPower(Power(abs(power.value))) }
+    }
 
     /**
-     * Spins the intake outward at [power] to eject artifacts.
+     * Spins the intake outward at [power] to eject pollen (potentially nectar in the future).
      *
      * @return an [Action] that reverses the intake
      */
     @VoltAction(name = "Reverse Intake", description = "Spins the intake outward")
-    fun reverse(power: Power = reversePower): Action = instant { setPower(Power(-abs(power.value))) }
+    fun reverse(power: Power = reversePower): Action = action {
+        init { setPower(Power(-abs(power.value))) }
+    }
 
     /**
      * Stops the intake.
@@ -67,14 +67,11 @@ class Intake(
      * @return an [Action] that disables the intake
      */
     @VoltAction(name = "Disable Intake", description = "Stops the intake")
-    fun disable(): Action = instant { setPower(Power(0.0)) }
+    fun disable(): Action = action {
+        init { setPower(Power(0.0)) }
+    }
 
     // --- Helpers ---
-
-    private fun instant(block: () -> Unit): Action = action {
-        init { block() }
-        loop { true }
-    }
 
     private fun setPower(target: Power) {
         power = target
@@ -86,14 +83,14 @@ class Intake(
         super.update()
         with(telemetry) {
             addData(
-                "Intake Status",
+                "Status",
                 when {
                     power.value > 0.0 -> "INTAKING"
                     power.value < 0.0 -> "REVERSING"
                     else -> "STOPPED"
                 },
             )
-            addData("Intake Power", "%.2f".format(power.value))
+            addData("Power", "%.2f".format(power.value))
         }
     }
 

@@ -12,15 +12,7 @@ import org.firstinspires.ftc.teamcode.robot.David
  * [org.firstinspires.ftc.teamcode.attachment.Intake] and
  * [org.firstinspires.ftc.teamcode.attachment.Outtake].
  *
- * Gamepad 2:
- * - Right bumper: enable intake
- * - Left bumper: disable intake
- * - X: reverse intake (eject)
- * - A: enable outtake
- * - B: disable outtake
- * - D-pad up: increase outtake speed one step
- * - D-pad down: decrease outtake speed one step
- */
+*/
 @VoltOpModeMeta("Hummingbird", "Testing")
 class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDrivetrain, David>() {
     override val robot = David(hardwareMap)
