@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.robot
 
 import com.pedropathing.algorithm.Foresight
 import com.pedropathing.algorithm.ForesightConfig
+import com.pedropathing.api.PoseFactory
 import com.pedropathing.controllers.Controller
 import com.pedropathing.math.Matrix
+import com.pedropathing.math.Pose
 import com.pedropathing.math.Vector2D
 import com.pedropathing.revhub.drivetrains.MecanumConfig
 import com.pedropathing.revhub.localizers.PinpointConfig
@@ -21,7 +23,7 @@ import org.firstinspires.ftc.teamcode.attachment.*
  *
  * TODO: drivetrain config below is copied from [Rachel] as a placeholder — retune for David.
  */
-class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPathingDrivetrain>(
+class David(hardwareMap: HardwareMap, poseFactory: PoseFactory, initialPose: Pose) : DrivetrainRobot<PinpointMecanumPedroPathingDrivetrain>(
     hardwareMap,
     PinpointMecanumPedroPathingDrivetrain(
         hardwareMap,
@@ -94,6 +96,8 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
                 c.naturalStrafeDeceleration.set(63.55964608467275)
             }
         ),
+        poseFactory,
+        initialPose,
     ),
 ) {
     // --- Constants ---
