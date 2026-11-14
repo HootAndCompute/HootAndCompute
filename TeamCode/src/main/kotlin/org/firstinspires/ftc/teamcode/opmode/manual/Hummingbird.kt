@@ -21,13 +21,17 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
         // Intake
         Tap(Button.RIGHT_BUMPER2) then { +robot.intake.enable() }
         Tap(Button.LEFT_BUMPER2) then { +robot.intake.disable() }
-        Tap(Button.X2) then { +robot.intake.reverse() }
+        Tap(Button.LEFT_STICK_BUTTON2) then { +robot.intake.reverse() }
 
         // Outtake
         Tap(Button.A2) then { +robot.outtake.enable() }
         Tap(Button.B2) then { +robot.outtake.disable() }
         Tap(Button.DPAD_UP2) then { +robot.outtake.increaseSpeed() }
         Tap(Button.DPAD_DOWN2) then { +robot.outtake.decreaseSpeed() }
+
+        // Gate operation
+        Tap(Button.X2) then { +robot.gate.openGate() }
+        Tap(Button.Y2) then { +robot.gate.closeGate() }
     }
 
     init {
