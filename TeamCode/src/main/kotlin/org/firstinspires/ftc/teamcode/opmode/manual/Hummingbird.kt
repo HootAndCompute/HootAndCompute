@@ -8,9 +8,10 @@ import dev.kingssack.volt.util.buttons.Button
 import org.firstinspires.ftc.teamcode.robot.David
 
 /**
- * Hummingbird drives [David] and controls both his
- * [org.firstinspires.ftc.teamcode.attachment.Intake] and
- * [org.firstinspires.ftc.teamcode.attachment.Outtake].
+ * Hummingbird drives [David] and controls his
+ * [org.firstinspires.ftc.teamcode.attachment.Intake],
+ * [org.firstinspires.ftc.teamcode.attachment.Outtake] and
+ * [org.firstinspires.ftc.teamcode.attachment.Kicker].
  *
 */
 @VoltOpModeMeta("Hummingbird", "Testing")
@@ -28,6 +29,10 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
         Tap(Button.B2) then { +robot.outtake.disable() }
         Tap(Button.DPAD_UP2) then { +robot.outtake.increaseSpeed() }
         Tap(Button.DPAD_DOWN2) then { +robot.outtake.decreaseSpeed() }
+
+        // Kicker
+        Tap(Button.Y2) then { +robot.kicker.forward() }
+        Tap(Button.DPAD_LEFT2) then { +robot.kicker.retract() }
     }
 
     init {
