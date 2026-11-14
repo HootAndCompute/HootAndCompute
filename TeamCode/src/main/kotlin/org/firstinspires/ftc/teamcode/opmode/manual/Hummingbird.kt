@@ -36,6 +36,7 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
         // Gate operation
         Tap(Button.X2) then { +robot.gate.openGate() }
         Tap(Button.Y2) then { +robot.gate.closeGate() }
+        // giveOneTrillionPoints()
     }
 
     init {
