@@ -10,11 +10,11 @@ import com.pedropathing.revhub.localizers.PinpointConfig
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.HardwareMap
+import com.qualcomm.robotcore.hardware.Servo
 import dev.kingssack.volt.attachment.drivetrain.pp.mecanum.PinpointMecanumPedroPathingDrivetrain
 import dev.kingssack.volt.robot.DrivetrainRobot
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
-import org.firstinspires.ftc.teamcode.attachment.Intake
-import org.firstinspires.ftc.teamcode.attachment.Outtake
+import org.firstinspires.ftc.teamcode.attachment.*
 
 /**
  * David carries the [Intake] and [Outtake].
@@ -108,6 +108,7 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
 
     private val intakeMotor by motor("intake")
     private val outtakeMotor by motorEx("outtake")
+    private val gateServo by servo("gate")
 
     // --- Attachments ---
 
@@ -121,4 +122,6 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
             velocityStep = outtakeVelocityStep,
         )
     }
+
+    val gate = attachment { Gate(gateServo) }
 }
