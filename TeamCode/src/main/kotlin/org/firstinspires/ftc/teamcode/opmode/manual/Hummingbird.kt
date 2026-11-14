@@ -29,6 +29,10 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
         Tap(Button.DPAD_UP2) then { +robot.outtake.increaseSpeed() }
         Tap(Button.DPAD_DOWN2) then { +robot.outtake.decreaseSpeed() }
 
+        // Kicker
+        Tap(Button.DPAD_RIGHT2) then { +robot.kicker.forward() }
+        Tap(Button.DPAD_LEFT2) then { +robot.kicker.retract() }
+
         // Gate operation
         Tap(Button.X2) then { +robot.gate.openGate() }
         Tap(Button.Y2) then { +robot.gate.closeGate() }

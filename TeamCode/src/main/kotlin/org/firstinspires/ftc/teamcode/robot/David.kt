@@ -109,6 +109,7 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
     private val intakeMotor by motor("intake")
     private val outtakeMotor by motorEx("outtake")
     private val gateServo by servo("gate")
+    private val kickerServo by servo("kicker")
 
     // --- Attachments ---
 
@@ -123,5 +124,6 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
         )
     }
 
+    val kicker = attachment { Kicker(kickerServo) }
     val gate = attachment { Gate(gateServo) }
 }
