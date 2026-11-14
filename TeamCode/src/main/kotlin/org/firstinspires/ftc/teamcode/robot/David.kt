@@ -14,10 +14,11 @@ import dev.kingssack.volt.attachment.drivetrain.pp.mecanum.PinpointMecanumPedroP
 import dev.kingssack.volt.robot.DrivetrainRobot
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.attachment.Intake
+import org.firstinspires.ftc.teamcode.attachment.Kicker
 import org.firstinspires.ftc.teamcode.attachment.Outtake
 
 /**
- * David carries the [Intake] and [Outtake].
+ * David carries the [Intake], [Outtake] and [Kicker].
  *
  * TODO: drivetrain config below is copied from [Rachel] as a placeholder — retune for David.
  */
@@ -108,6 +109,7 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
 
     private val intakeMotor by motor("intake")
     private val outtakeMotor by motorEx("outtake")
+    private val kickerServo by servo("kicker")
 
     // --- Attachments ---
 
@@ -121,4 +123,6 @@ class David(hardwareMap: HardwareMap) : DrivetrainRobot<PinpointMecanumPedroPath
             velocityStep = outtakeVelocityStep,
         )
     }
+
+    val kicker = attachment { Kicker(kickerServo) }
 }
