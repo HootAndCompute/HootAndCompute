@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode.opmode.manual
 import dev.kingssack.volt.attachment.drivetrain.pp.mecanum.PinpointMecanumPedroPathingDrivetrain
 import dev.kingssack.volt.opmode.VoltOpModeMeta
 import dev.kingssack.volt.opmode.manual.AdvancedDrivetrainManualMode
-import dev.kingssack.volt.util.Event.ManualEvent.Tap
+import dev.kingssack.volt.util.Event
+import dev.kingssack.volt.util.Event.ManualEvent.*
 import dev.kingssack.volt.util.buttons.Button
 import org.firstinspires.ftc.teamcode.robot.David
 
@@ -20,14 +21,16 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
     private fun defineControls() {
         // Intake
 
-        /*Tap(Button.LEFT_BUMPER2) then {
+        /*
+        Tap(Button.LEFT_BUMPER2) then {
             if (robot.intake.isRunning) {
                 +robot.intake.disable()
             }
             else {
                 +robot.intake.enable()
             }
-        }*/
+        }
+        */
 
         Tap(Button.LEFT_BUMPER2) then { +robot.intake.enable() }
         Tap(Button.RIGHT_BUMPER2) then { +robot.intake.disable() }
@@ -43,19 +46,27 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
 
         // Kicker
 
-        /*Tap(Button.DPAD_LEFT2) then {
+        /*
+        Tap(Button.DPAD_LEFT2) then {
             if (robot.kicker.isExtended) {
                 +robot.kicker.retract()
             }
             else {
                 +robot.kicker.extend()
             }
-        }*/
+        }
+        */
 
         Tap(Button.DPAD_LEFT2) then { +robot.kicker.extend() }
         Tap(Button.DPAD_RIGHT2) then { +robot.kicker.retract() }
 
         // Gate operation
+
+        /*
+        Tap(Button.X2) then { +robot.gate.openGate() }
+        Release(Button.X2) then { +robot.gate.closeGate() }
+        */
+
         Tap(Button.X2) then { +robot.gate.openGate() }
         Tap(Button.Y2) then { +robot.gate.closeGate() }
         // giveOneTrillionPoints()
