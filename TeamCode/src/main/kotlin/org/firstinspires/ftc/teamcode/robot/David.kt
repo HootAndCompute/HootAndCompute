@@ -31,9 +31,9 @@ class David(hardwareMap: HardwareMap, poseFactory: PoseFactory, initialPose: Pos
             // Pinpoint tuning goes here
             c.name.set("pinpoint")
             c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
-            c.xPodOffset.set(-2.0175490792342057)
-            c.yPodOffset.set(0.6881864052119218)
-            c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD)
+            c.xPodOffset.set(0.0)
+            c.yPodOffset.set(0.0)
+            c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED)
             c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED)
             c.globalDistanceUnit.set(DistanceUnit.INCH)
             c.offsetUnits.set(DistanceUnit.INCH)
@@ -45,8 +45,8 @@ class David(hardwareMap: HardwareMap, poseFactory: PoseFactory, initialPose: Pos
             c.backLeftName.set("leftback")
             c.backRightName.set("rightback")
             c.frontLeftDirection.set(DcMotorSimple.Direction.FORWARD)
-            c.frontRightDirection.set(DcMotorSimple.Direction.REVERSE)
-            c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD)
+            c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD)
+            c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE)
             c.backRightDirection.set(DcMotorSimple.Direction.REVERSE)
         },
         Foresight(
@@ -104,7 +104,7 @@ class David(hardwareMap: HardwareMap, poseFactory: PoseFactory, initialPose: Pos
 
     // Outtake velocities in ticks/s. Max is kept below the REV UltraPlanetary's ~2800 ticks/s
     // no-load speed; start lower for safety and step up with the d-pad.
-    private val outtakeStartVelocity = 1000.0
+    private val outtakeStartVelocity = 1250.0
     private val outtakeMaxVelocity = 2100.0
     private val outtakeVelocityStep = 50.0
 
