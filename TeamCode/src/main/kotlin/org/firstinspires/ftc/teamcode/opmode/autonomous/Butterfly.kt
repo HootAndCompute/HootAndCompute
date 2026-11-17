@@ -8,8 +8,8 @@ import dev.kingssack.volt.opmode.autonomous.AutonomousMode
 import dev.kingssack.volt.util.Event.AutonomousEvent.Start
 import org.firstinspires.ftc.teamcode.robot.David
 
-@VoltOpModeMeta("Bat")
-class Bat : AutonomousMode<David>() {
+@VoltOpModeMeta("Butterfly")
+class Butterfly : AutonomousMode<David>() {
     val poseFactory: PoseFactory = PoseFactory.degrees()
     val initialPose: Pose = poseFactory.of(0.0, 0.0, 90.0)
 
