@@ -10,10 +10,10 @@ class Kicker(
     kickerServo: Servo
 ) : ServoAttachment("Kicker", kickerServo) {
     /* This moves the kicker forward to push the pollen into the outtake */
-    @VoltAction("Kick forward", "This kicks the pollen into the outtake")
-    fun forward(): Action = goTo(ServoPosition(1.0))
+    @VoltAction("Extend kicker", "This kicks the pollen into the outtake")
+    fun extend(): Action = goTo(ServoPosition(0.0))
 
     /* This retracts the kicker */
     @VoltAction("Retract Kicker", "This retracts the kicker")
-    fun retract(): Action = goTo(ServoPosition(0.0))
+    fun retract(): Action = goTo(ServoPosition(1.0))
 }
