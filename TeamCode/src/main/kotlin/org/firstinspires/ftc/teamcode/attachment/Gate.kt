@@ -12,9 +12,9 @@ class Gate(
 ) : ServoAttachment("Gate", bigAhhServo) {
     /* This opens the gate */
     @VoltAction("Open Gate", "This opens the gate")
-    fun openGate(): Action = goTo(ServoPosition(1.0))
+    fun openGate(): Action = goTo(ServoPosition(0.0))
 
     /* This closes the gate */
     @VoltAction("Close Gate", "This closes the gate")
-    fun closeGate(): Action = goTo(ServoPosition(0.0))
+    fun closeGate(): Action = goTo(ServoPosition(1.0))
 }

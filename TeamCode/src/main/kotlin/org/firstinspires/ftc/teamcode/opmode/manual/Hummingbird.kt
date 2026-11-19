@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.manual
 
+import com.pedropathing.api.PoseFactory
+import com.pedropathing.math.Pose
 import dev.kingssack.volt.attachment.drivetrain.pp.mecanum.PinpointMecanumPedroPathingDrivetrain
 import dev.kingssack.volt.opmode.VoltOpModeMeta
 import dev.kingssack.volt.opmode.manual.AdvancedDrivetrainManualMode
@@ -15,12 +17,15 @@ import org.firstinspires.ftc.teamcode.robot.David
 */
 @VoltOpModeMeta("Hummingbird", "Testing")
 class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDrivetrain, David>() {
-    override val robot = David(hardwareMap)
+    private val poseFactory: PoseFactory = PoseFactory.degrees()
+    private val initialPose: Pose = poseFactory.of(0.0, 0.0, 0.0)
+
+    override val robot = David(hardwareMap, poseFactory, initialPose)
 
     private fun defineControls() {
         // Intake
-        Tap(Button.RIGHT_BUMPER2) then { +robot.intake.enable() }
-        Tap(Button.LEFT_BUMPER2) then { +robot.intake.disable() }
+        Tap(Button.LEFT_BUMPER2) then { +robot.intake.enable() }
+        Tap(Button.RIGHT_BUMPER2) then { +robot.intake.disable() }
         Tap(Button.LEFT_STICK_BUTTON2) then { +robot.intake.reverse() }
 
         // Outtake
@@ -30,8 +35,8 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
         Tap(Button.DPAD_DOWN2) then { +robot.outtake.decreaseSpeed() }
 
         // Kicker
-        Tap(Button.DPAD_RIGHT2) then { +robot.kicker.forward() }
-        Tap(Button.DPAD_LEFT2) then { +robot.kicker.retract() }
+        Tap(Button.DPAD_LEFT2) then { +robot.kicker.extend() }
+        Tap(Button.DPAD_RIGHT2) then { +robot.kicker.retract() }
 
         // Gate operation
         Tap(Button.X2) then { +robot.gate.openGate() }

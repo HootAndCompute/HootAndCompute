@@ -20,8 +20,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 class Intake(
     private val motor: DcMotor,
     direction: DcMotorSimple.Direction = DcMotorSimple.Direction.FORWARD,
-    private val intakePower: Power = Power(0.6),
-    private val reversePower: Power = Power(0.4),
+    private val intakePower: Power = Power(0.3),
+    private val reversePower: Power = Power(0.3),
 ) : Attachment("Intake") {
 
     // --- Properties ---
