@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo
 import dev.kingssack.volt.annotations.VoltAction
 import dev.kingssack.volt.attachment.ServoAttachment
 import dev.kingssack.volt.util.ServoPosition
+import org.firstinspires.ftc.robotcore.external.Telemetry
 
 class Kicker(
     kickerServo: Servo
@@ -26,5 +27,20 @@ class Kicker(
     fun retract(): Action {
         isExtended = false
         return goTo(ServoPosition(0.0))
+    }
+
+    /* telemetry */
+    context(telemetry: Telemetry)
+    override fun update() {
+        super.update()
+        with(telemetry) {
+            addData(
+                "Kicker Status",
+                when {
+                    isExtended -> "Extended"
+                    else -> "Retracted"
+                }
+            )
+        }
     }
 }

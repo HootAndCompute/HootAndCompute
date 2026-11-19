@@ -21,7 +21,7 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
     private fun defineControls() {
         // Intake
 
-        /*
+
         Tap(Button.LEFT_BUMPER2) then {
             if (robot.intake.isRunning) {
                 +robot.intake.disable()
@@ -30,10 +30,7 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
                 +robot.intake.enable()
             }
         }
-        */
 
-        Tap(Button.LEFT_BUMPER2) then { +robot.intake.enable() }
-        Tap(Button.RIGHT_BUMPER2) then { +robot.intake.disable() }
         Tap(Button.LEFT_STICK_BUTTON2) then { +robot.intake.reverse() }
 
         // Outtake
@@ -45,8 +42,6 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
         Tap(Button.DPAD_DOWN2) then { +robot.outtake.decreaseSpeed() }
 
         // Kicker
-
-        /*
         Tap(Button.DPAD_LEFT2) then {
             if (robot.kicker.isExtended) {
                 +robot.kicker.retract()
@@ -55,20 +50,10 @@ class Hummingbird : AdvancedDrivetrainManualMode<PinpointMecanumPedroPathingDriv
                 +robot.kicker.extend()
             }
         }
-        */
-
-        Tap(Button.DPAD_LEFT2) then { +robot.kicker.extend() }
-        Tap(Button.DPAD_RIGHT2) then { +robot.kicker.retract() }
 
         // Gate operation
-
-        /*
         Tap(Button.X2) then { +robot.gate.openGate() }
         Release(Button.X2) then { +robot.gate.closeGate() }
-        */
-
-        Tap(Button.X2) then { +robot.gate.openGate() }
-        Tap(Button.Y2) then { +robot.gate.closeGate() }
         // giveOneTrillionPoints()
     }
 
