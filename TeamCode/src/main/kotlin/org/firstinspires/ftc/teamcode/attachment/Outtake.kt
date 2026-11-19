@@ -99,6 +99,22 @@ class Outtake(
     @VoltAction(name = "Decrease Outtake Speed", description = "Lowers outtake velocity one step")
     fun decreaseSpeed(): Action = instant { adjustVelocity(-velocityStep) }
 
+    // --- Direct control ---
+
+    /**
+     * Sets [targetVelocity] directly (clamped to 0..[maxVelocity]) without queuing an [Action].
+     *
+     * Meant to be called every loop by automatic speed control (e.g. AprilTag distance). If the
+     * outtake is running the motor follows immediately; if it is stopped only the target is stored,
+     * so the motor stays at 0 until [enable] is called.
+     *
+     * @param velocity the new target velocity in ticks/s
+     */
+    fun updateTargetVelocity(velocity: Double) {
+        targetVelocity = velocity.coerceIn(0.0, maxVelocity)
+        if (isRunning) motor.velocity = targetVelocity
+    }
+
     // --- Helpers ---
 
     private fun instant(block: () -> Unit): Action = action {
